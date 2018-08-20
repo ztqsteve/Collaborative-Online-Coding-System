@@ -12,19 +12,21 @@
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
         <form class="form-inline my-2 my-lg-0">
-          <button type="button" class="btn btn-primary">Sign in</button>
+          <button type="button" class="btn btn-primary" *ngIf="!auth.isAuthenticated()" (click)="auth.login()">
+            Sign in
+          </button>
         </form>
       </li>
-      <li class="nav-item dropdown">
+      <li class="nav-item dropdown" *ngIf="auth.isAuthenticated()">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          {{username}}
+          {{ profile?.nickname }}
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">My Profile</a>
+          <a class="dropdown-item" routerLink="/profile">My Profile</a>
           <a class="dropdown-item" href="#">My Favorites</a>
           <a class="dropdown-item" href="#">My Submissions</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Log Out</a>
+          <a class="dropdown-item" href="#" (click)="auth.logout()">Log Out</a>
         </div>
       </li>
     </ul>

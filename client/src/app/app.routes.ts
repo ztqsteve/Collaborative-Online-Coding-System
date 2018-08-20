@@ -1,6 +1,9 @@
 import { Routes, RouterModule} from '@angular/router';
 import { ProblemListComponent } from './components/problem-list/problem-list.component';
 import { ProblemDetailComponent } from './components/problem-detail/problem-detail.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { CallbackComponent } from './components/callback/callback.component';
+
 
 const routes: Routes = [
   {
@@ -13,8 +16,13 @@ const routes: Routes = [
   },{
     path: 'problems/:id',
     component: ProblemDetailComponent
-  },
-  {
+  },{
+    path: 'profile',
+    component: ProfileComponent
+  },{
+    path: 'callback',
+    component: CallbackComponent
+  },{
     path: "**",
     redirectTo: 'problems'
   }
