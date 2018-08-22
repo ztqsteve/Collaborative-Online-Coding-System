@@ -10,7 +10,7 @@ export class NavbarComponent implements OnInit {
   title = "Collaborative Online Judge System";
 
   // username = "";
-  profile: any;
+  public profile: any;
 
   constructor(@Inject('auth') public auth) {
 

@@ -28,7 +28,13 @@
             ],
             "scripts": [
               "./node_modules/jquery/dist/jquery.js",
-              "./node_modules/bootstrap/dist/js/bootstrap.js"
+              "./node_modules/bootstrap/dist/js/bootstrap.js",
+              "./node_modules/ace-builds/src-min-noconflict/ace.js",
+              "./node_modules/ace-builds/src-min-noconflict/theme-eclipse.js",
+              "./node_modules/ace-builds/src-min-noconflict/mode-javascript.js",
+              "./node_modules/ace-builds/src-min-noconflict/mode-java.js",
+              "./node_modules/ace-builds/src-min-noconflict/mode-c_cpp.js",
+              "./node_modules/ace-builds/src-min-noconflict/mode-python.js",
             ]
           },
           "configurations": {

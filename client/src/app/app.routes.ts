@@ -3,7 +3,7 @@ import { ProblemListComponent } from './components/problem-list/problem-list.com
 import { ProblemDetailComponent } from './components/problem-detail/problem-detail.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { CallbackComponent } from './components/callback/callback.component';
-
+import { AuthGuardService } from './services/auth-guard.service';
 
 const routes: Routes = [
   {
@@ -18,7 +18,8 @@ const routes: Routes = [
     component: ProblemDetailComponent
   },{
     path: 'profile',
-    component: ProfileComponent
+    component: ProfileComponent,
+    canActivate: [AuthGuardService]
   },{
     path: 'callback',
     component: CallbackComponent
