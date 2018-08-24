@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { Problem } from '../../models/problems.model';
 import { Subscription } from 'rxjs';
 @Component({
@@ -10,18 +10,29 @@ export class ProblemListComponent implements OnInit {
 
   problems: Problem[] = [];
   subscriptionProblems: Subscription;
-  constructor(@Inject('data') private data) { }
+  searchTerm: string = '';
+  subscriptionInput: Subscription;
+  constructor(@Inject('data') private data,
+              @Inject('input') private input) { }
 
   ngOnInit() {
     this.getProblems();
+    this.getSearchTerm();
   }
 
-  // ngOnDestory() {
-  //   this.subscriptionProblems.unsubscribe();
-  // }
+  ngOnDestroy() {
+    this.subscriptionProblems.unsubscribe();
+  }
 
   getProblems(): void {
     this.subscriptionProblems = this.data.getProblems()
       .subscribe(problems => this.problems = problems);
+  }
+
+  getSearchTerm(): void {
+    this.subscriptionInput = this.input.getInput()
+                                       .subscribe(
+                                         term => this.searchTerm = term
+                                       );
   }
 }

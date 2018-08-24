@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { Problem } from '../models/problems.model';
 import { PROBLEMS } from '../mock-problems';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import { BehaviorSubject } from 'rxjs';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'

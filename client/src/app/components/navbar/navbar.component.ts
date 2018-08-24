@@ -1,5 +1,7 @@
-import { Component, OnInit, Inject } from '@angular/core';
-
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Subscription } from 'rxjs'
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -12,7 +14,10 @@ export class NavbarComponent implements OnInit {
   // username = "";
   public profile: any;
 
-  constructor(@Inject('auth') public auth) {
+  searchBox : FormControl = new FormControl();
+  subscription: Subscription;
+  constructor(@Inject('auth') public auth, @Inject('input') private input,
+              private router: Router) {
 
   }
 
@@ -24,6 +29,22 @@ export class NavbarComponent implements OnInit {
         this.profile = profile;
       });
     }
+
+    this.subscription = this.searchBox
+                            .valueChanges
+                            .subscribe(
+                              term => {
+                                this.input.changeInput(term);
+                              }
+                            );
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
+  searchProblem(): void {
+    this.router.navigate(['/']);
   }
 
 }
