@@ -43,6 +43,18 @@ export class DataService {
       .catch(this.handleError);
   }
 
+  buildAndRun(data): Promise<Object> {
+    let headers = new Headers({'content-type':'application/json'});
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post('api/v1/build_and_run', data, options)
+      .toPromise()
+      .then((res: Response) => {
+        console.log(res);
+        return res.json();
+      })
+      .catch(this.handleError);
+  }
+
   //error handler
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purpose only

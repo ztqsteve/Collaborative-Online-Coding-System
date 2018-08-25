@@ -12,6 +12,7 @@ declare var ace: any;
 export class EditorComponent implements OnInit {
 
   editor: any;
+  output: string;
 
   public languages: string[] = ['Python', 'Java', 'C++'];
   language: string = 'Python';
@@ -46,7 +47,8 @@ export class EditorComponent implements OnInit {
   }
 
   constructor(@Inject('collaboration') private collaboration,
-                private route: ActivatedRoute) { }
+                private route: ActivatedRoute,
+              @Inject('data') private data) { }
 
   ngOnInit() {
     this.route.params
@@ -90,10 +92,16 @@ export class EditorComponent implements OnInit {
   resetEditor(): void {
     this.editor.session.setMode('ace/mode/' + this.languageToMode[this.language].toLowerCase());
     this.editor.setValue(this.defaultContent[this.language]);
+    this.output = '';
   }
 
   submit(): void {
     let userCode = this.editor.getValue();
-    console.log(userCode);
+    let data = {
+      user_code: userCode,
+      lang: this.language.toLowerCase()
+    }
+    this.data.buildAndRun(data)
+        .then(res => this.output = res.text);
   }
 }
