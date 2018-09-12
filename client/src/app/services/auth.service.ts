@@ -34,6 +34,7 @@ export class AuthService {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
+        window.location.reload();
         this.router.navigate(['/']);
       } else if (err) {
         this.router.navigate(['/']);
