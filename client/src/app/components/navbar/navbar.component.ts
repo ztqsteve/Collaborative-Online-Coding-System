@@ -11,7 +11,7 @@ import { debounceTime } from 'rxjs/operators';
 })
 export class NavbarComponent implements OnInit {
 
-  title = "Collaborative Online Judge System";
+  title = "Collaborative Online Coding System";
 
   username = "";
 
