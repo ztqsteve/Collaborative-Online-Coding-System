@@ -1,9 +1,10 @@
 <div class='container'>
   <app-new-problem></app-new-problem>
+  <br />
   <div class='list-group'>
     <a class='list-group-item' *ngFor='let problem of problems | search: searchTerm' [routerLink]="['/problems', problem.id]">
       <span class="{{'pull-left label badge difficulty diff-' + problem.difficulty.toLocaleLowerCase()}}">{{problem.difficulty}}</span>
-      <strong class='title'>{{problem.id}}.{{problem.name}}</strong>
+      <span style="font-family: sans-serif">{{problem.id}}.{{problem.name}}</span>
     </a>
   </div>
 </div>

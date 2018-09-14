@@ -22,6 +22,8 @@ import { DataService } from './services/data.service';
 import { CollaborationService } from './services/collaboration.service';
 import { SearchPipe } from './pipes/search.pipe';
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +41,8 @@ import { SearchPipe } from './pipes/search.pipe';
     FormsModule,
     HttpModule,
     routing,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+
   ],
   providers: [
     {

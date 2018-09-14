@@ -16,10 +16,11 @@ const DEFAULT_PROBLEM: Problem = Object.freeze({
 })
 export class NewProblemComponent implements OnInit {
 
-  public difficulties = ['Easy', 'Medium', 'Hard', 'Super'];
+  public difficulties = ['Easy', 'Medium', 'Hard'];
   newProblem: Problem = Object.assign({}, DEFAULT_PROBLEM);
 
-  constructor(@Inject('data') private data,@Inject('auth') private auth) { }
+  constructor(@Inject('data') private data,
+              @Inject('auth-guard') private authGuard) { }
 
   ngOnInit() {
 

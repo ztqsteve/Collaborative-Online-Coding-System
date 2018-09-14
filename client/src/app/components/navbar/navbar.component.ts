@@ -13,8 +13,7 @@ export class NavbarComponent implements OnInit {
 
   title = "Collaborative Online Judge System";
 
-  // username = "";
-  public profile: any;
+  username = "";
 
   searchBox : FormControl = new FormControl();
   subscription: Subscription;
@@ -25,11 +24,15 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
     if (this.auth.userProfile) {
-      this.profile = this.auth.userProfile;
+      this.username = this.auth.userProfile.nickname;
     } else {
       this.auth.getProfile((err, profile) => {
-        this.profile = profile;
-      });
+        if (err) {
+          console.log(err)
+        } else {
+          this.username = profile.nickname
+        }
+      })
     }
 
     this.subscription = this.searchBox
@@ -49,5 +52,7 @@ export class NavbarComponent implements OnInit {
   searchProblem(): void {
     this.router.navigate(['/']);
   }
+
+
 
 }

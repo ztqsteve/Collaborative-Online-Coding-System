@@ -10,6 +10,8 @@ export class AppComponent {
   title = 'client';
 
   constructor(public auth: AuthService) {
-    auth.handleAuthentication();
+    this.auth.handleAuthentication()
   }
+
+
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 
 import { ActivatedRoute, Params} from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 declare var ace: any;
 
@@ -48,7 +49,8 @@ export class EditorComponent implements OnInit {
 
   constructor(@Inject('collaboration') private collaboration,
                 private route: ActivatedRoute,
-              @Inject('data') private data) { }
+              @Inject('data') private data,
+              private auth: AuthService) { }
 
   ngOnInit() {
     this.route.params
@@ -96,12 +98,16 @@ export class EditorComponent implements OnInit {
   }
 
   submit(): void {
-    let userCode = this.editor.getValue();
-    let data = {
-      user_code: userCode,
-      lang: this.language.toLowerCase()
-    }
-    this.data.buildAndRun(data)
-        .then(res => this.output = res.text);
+    if (this.auth.isAuthenticated()) {
+      let userCode = this.editor.getValue();
+      let data = {
+        user_code: userCode,
+        lang: this.language.toLowerCase()
+      }
+      this.data.buildAndRun(data)
+          .then(res => this.output = res.text);
+  } else {
+    this.auth.login();
   }
+}
 }

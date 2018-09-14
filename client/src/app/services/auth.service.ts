@@ -12,16 +12,15 @@ import 'rxjs'
 export class AuthService {
   requestedScopes: string = 'openid profile read:users';
   auth0 = new auth0.WebAuth({
-    clientID: 'upc26m3obmO4auMYGs-uq3MbiEbXCdiN',
-    domain: 'tianqizhang.auth0.com',
+    clientID: AUTH_CONFIG.clientID,
+    domain: AUTH_CONFIG.domain,
     responseType: 'token id_token',
     audience: 'https://tianqizhang.auth0.com/userinfo',
-    redirectUri: 'http://localhost:3000/callback',
+    redirectUri: AUTH_CONFIG.callbackURL,
     scope: this.requestedScopes
   });
 
   userProfile: any;
-  extension_url: string = 'https://tianqizhang.us.webtask.io/adf6e2f2b84784b57522e3b19dfc9201/api'
 
 
   constructor(public router: Router, private http: Http) { }
@@ -112,12 +111,13 @@ export class AuthService {
     return Promise.reject(error.body || error);
   }
 
-  // getUserRole(): Promise<any> {
-  //   let user_id = this.userProfile.sub.split('|')[1]
-  //   return this.http.get(`${this.extension_url}/users/${user_id}/roles`)
-  //     .toPromise()
-  //     .then((res: Response) => res.json())
-  //     .catch(this.handleError);
-  // }
+  getUserRole(): Array<string> {
+    if (this.userProfile && this.userProfile["https://tianqizhang:auth0:com/roles"]) {
+      return this.userProfile["https://tianqizhang:auth0:com/roles"];
+    } else {
+      return [];
+    }
+
+  }
 
   }

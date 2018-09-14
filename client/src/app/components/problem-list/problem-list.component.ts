@@ -13,11 +13,13 @@ export class ProblemListComponent implements OnInit {
   searchTerm: string = '';
   subscriptionInput: Subscription;
   constructor(@Inject('data') private data,
-              @Inject('input') private input) { }
+              @Inject('input') private input,
+              @Inject('auth') private auth) { }
 
   ngOnInit() {
     this.getProblems();
     this.getSearchTerm();
+
   }
 
   ngOnDestroy() {
@@ -35,4 +37,7 @@ export class ProblemListComponent implements OnInit {
                                          term => this.searchTerm = term
                                        );
   }
+
+
+
 }
