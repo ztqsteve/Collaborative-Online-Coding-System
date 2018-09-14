@@ -17,9 +17,9 @@ Collaborative Online Coding System is a full-stack system supporting collaborati
 ## Design
 ### Collaborative Editor
 I am using [socket.io](https://socket.io) as the communication protocol between client and server. The reasons are:
-..* Client-server communication is heavy;
-..* Full-duplex asynchronous messaging is prefered;
-..* WebSockets pass through most firewalls without any reconfiguration.
+* Client-server communication is heavy;
+* Full-duplex asynchronous messaging is prefered;
+* WebSockets pass through most firewalls without any reconfiguration.
 ### Client-side Editor
 #### Ace Editor
 Here I have two options to choose an editor for browser: [Ace](https://ace.c9.io) and [CodeMirror](https://codemirror.net). They are both Javascript-based editor for browser and support source code editing. They both support multiple languages, color themes, programing APIs for advanced usage.
