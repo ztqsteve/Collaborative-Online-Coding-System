@@ -14,6 +14,9 @@ Collaborative Online Coding System is a full-stack system supporting collaborati
 | Frontend-client | Angular, Socket.io |
 | Frontend-server | Node.js, Socket.io, Redis, MongoDB, Nginx|
 | Backend(executor) | Nginx, Flask, Docker|
+
+<img src="stack_diagram.png" />
+
 ## Design
 ### Collaborative Editor
 I am using [socket.io](https://socket.io) as the communication protocol between client and server. The reasons are:
