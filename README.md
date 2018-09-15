@@ -40,15 +40,43 @@ It is very natural and common that a new user jumps into an existing session. Or
 There are three options here:
 
 * Keep All Change Events
+
 This solution is straightforward: server stores all change events it receives in an ordered list: *[event_0, event_1, event_2 ... event_n]*. When a new user joins the editing session, server sends the list of all change events to user. User then applies all changes locally to catch up. However, this solution is not optimal as the size of events list increases rapidly. It will consume a lot of bandwidth and memory.
 
 * Keep Latest Snapshot
+
 In this solution, server will not keep all events. Instead, it keeps a latest snapshot of editor content. Behaving like an Ace editor, the server will keep a local copy of editor content and apply changes every time it gets a change event. This solution is fast and memory efficient when restoring content for user - just send the snapshot. However, it loses the ability to roll back to an old point or “undo” some operations on server side.
 
 * Combine Snapshot and Change Events
+
 This solution combines the above two. Server keeps a snapshot before a certain point (e.g. 1 hour before), and list of change events since that point: *{snapshot_n, [event_n, event_n+1, event_n+2 ...]}*. This solution limits the size of event list, as well as keep the ability for rolling back.
 
-At first stage, I used option 1, the most straightforward solution, to make the whole system work as soon as possible, the third solution can be done in the future to optimize the system.
+At early stage, I used option 1, the most straightforward solution, to make the whole system work, the third solution can be done in the future to optimize the system.
+
+### User Code Executor
+We allow users to submit their code through web UI. We will try building and running code behalf of user. For security reason, we cannot execute user code directly on server. We can utilize:
+1. language specific security tool/package: SecurityManager in Java, Pypy in Python etc.
+2. Container technology: Docker etc.
+3. Virtual machine: VirtualBox, Vagrant etc.
+
+Here I compare pros/cons of different approaches:
+
+| Options                        |             Pros                |        Cons        |
+| ------------------------------ |:-------------------------------:|--------------------|
+| Language Specific Tool/Package |      Small overhead;            |Need configuration for each language; Need clean up work after the execution;|
+| Container                      |Lightweight; Quick to initialize;|Weaker OS isolation;|
+| Virtual Machine                |     Complete isolation;         |Slow to initialize; |
+
+Container is an obvious winner if I want to support multiple languages and don’t worry about performance too much.
+
+#### Executor Server
+I am using Docker container to execute user-submitted code on server. In order not to slow down the frontend server (Node.js server), I deploy Docker container on backend server and make it accept execution requests coming from frontend server.
+
+#### Docker
+With [Docker Hub](https://hub.docker.com), we are able to pre-create a container image with all necessary environment & tools ready, then use it on all execution instances. This approach needs one-time image download and initialization every time it executes code. Considering the fast initialization and loose time constraints, it is OK to accept the initialization time.
+
+
+
 
 
 
