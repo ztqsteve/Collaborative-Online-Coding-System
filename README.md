@@ -78,6 +78,11 @@ I am using Docker container to execute user-submitted code on server. In order n
 #### Docker
 With [Docker Hub](https://hub.docker.com), we are able to pre-create a container image with all necessary environment & tools ready, then use it on all execution instances. This approach needs one-time image download and initialization every time it executes code. Considering the fast initialization and loose time constraints, it is OK to accept the initialization time.
 
+## Future Work
+1. Add a judger at backend server. User can submit the code through ‘submit’ button to submit the code to solve the chosen question. The result, including compiling, correctness and running time, will be displayed to user. 
+2. User’s submissions can be recorded for reference.
+3. User can check his/her progress / statistics for questions.
+4. Apply "Combine Snapshot and Change Events" to implement Fast Forwarding Restore
 
 
 
