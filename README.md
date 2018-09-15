@@ -41,8 +41,10 @@ There are three options here:
 
 * Keep All Change Events
 This solution is straightforward: server stores all change events it receives in an ordered list: *[event_0, event_1, event_2 ... event_n]*. When a new user joins the editing session, server sends the list of all change events to user. User then applies all changes locally to catch up. However, this solution is not optimal as the size of events list increases rapidly. It will consume a lot of bandwidth and memory.
+
 * Keep Latest Snapshot
 In this solution, server will not keep all events. Instead, it keeps a latest snapshot of editor content. Behaving like an Ace editor, the server will keep a local copy of editor content and apply changes every time it gets a change event. This solution is fast and memory efficient when restoring content for user - just send the snapshot. However, it loses the ability to roll back to an old point or “undo” some operations on server side.
+
 * Combine Snapshot and Change Events
 This solution combines the above two. Server keeps a snapshot before a certain point (e.g. 1 hour before), and list of change events since that point: *{snapshot_n, [event_n, event_n+1, event_n+2 ...]}*. This solution limits the size of event list, as well as keep the ability for rolling back.
 
