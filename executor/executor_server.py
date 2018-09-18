@@ -6,10 +6,6 @@ from flask import jsonify
 
 app = Flask(__name__)
 
-@app.route('/')
-def hello():
-    return 'Hello World!'
-
 @app.route('/build_and_run', methods=['POST'])
 def build_and_run():
     data = json.loads(request.data)
